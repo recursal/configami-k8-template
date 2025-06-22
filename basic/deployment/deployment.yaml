@@ -197,6 +197,10 @@ spec:
         livenessProbe:
           {{#json2yaml "livenessProbe"}}{{/json2yaml}}
         {{/if}}
+        {{#if startupProbe}}
+        startupProbe:
+          {{#json2yaml "startupProbe"}}{{/json2yaml}}
+        {{/if}}
       {{#if initContainers}}
       initContainers:
         {{#json2yaml "initContainers"}}{{/json2yaml}}
