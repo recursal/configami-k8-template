@@ -87,6 +87,16 @@ module.exports = function(cg, input) {
 		input._hasAffinity = true;
 	}
 
+	if( input._podAffinityPreferred ) {
+		input._hasAffinity = true;
+		input._hasPreferredPodAffinity = true;
+	}
+
+	// Add support for _nodeAntiAffinity
+	if( input._nodeAntiAffinity ) {
+		input._hasAffinity = true;
+	}
+
 	// Allow an array of imagePullSecrets
 	if( input.imagePullSecrets && !Array.isArray(input.imagePullSecrets) ) {
 		input.imagePullSecrets = [ input.imagePullSecrets ];

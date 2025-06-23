@@ -49,8 +49,9 @@ spec:
     spec:
       {{#if _hasAffinity}}
       affinity:
-        {{#if _hasNodeAffinity}}
+        {{#if (or _hasNodeAffinity _nodeAntiAffinity)}}
         nodeAffinity:
+          {{#if _hasNodeAffinity}}
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             {{#if simpleNodeAffinity}}
@@ -65,13 +66,18 @@ spec:
             {{#if customNodeAffinity}}
             {{#json2yaml "customNodeAffinity"}}{{/json2yaml}}
             {{/if}}
+          {{/if}}
+          {{#if _nodeAntiAffinity}}
+          {{#json2yaml "_nodeAntiAffinity"}}{{/json2yaml}}
+          {{/if}}
         {{/if}}
-        {{#if _hasPodAffinity}}
+        {{#if (or _hasPodAffinity _hasPreferredPodAffinity)}}
         podAffinity:
+          {{#if _hasPodAffinity}}
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
             {{#if simplePodAffinity}}
-            - matchExpressions:
+            matchExpressions:
               {{#each simplePodAffinity}}
               - key: "{{@key}}"
                 operator: In
@@ -82,6 +88,11 @@ spec:
             {{#if customPodAffinity}}
             {{#json2yaml "customPodAffinity"}}{{/json2yaml}}
             {{/if}}
+          {{/if}}
+          {{#if _hasPreferredPodAffinity}}
+          preferredDuringSchedulingIgnoredDuringExecution:
+            {{#json2yaml "_podAffinityPreferred"}}{{/json2yaml}}
+          {{/if}}
         {{/if}}
         {{#if _podAntiAffinity}}
         podAntiAffinity:
@@ -186,6 +197,10 @@ spec:
         livenessProbe:
           {{#json2yaml "livenessProbe"}}{{/json2yaml}}
         {{/if}}
+        {{#if startupProbe}}
+        startupProbe:
+          {{#json2yaml "startupProbe"}}{{/json2yaml}}
+        {{/if}}
       {{#if initContainers}}
       initContainers:
         {{#json2yaml "initContainers"}}{{/json2yaml}}
@@ -193,6 +208,9 @@ spec:
       {{#if hostNetwork}}
       hostNetwork: {{hostNetwork}}
       dnsPolicy: ClusterFirstWithHostNet
+      {{else}}
+      hostNetwork: false
+      dnsPolicy: {{dnsPolicy}}
       {{/if}}
       {{#if dnsNameServers}}
       dnsConfig:
