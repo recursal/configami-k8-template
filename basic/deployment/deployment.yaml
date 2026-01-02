@@ -64,8 +64,12 @@ spec:
               {{/each}}
             {{/if}}
             {{#if customNodeAffinity}}
+            # customNodeAffinity is under 'requiredDuringSchedulingIgnoredDuringExecution'
             {{#json2yaml "customNodeAffinity"}}{{/json2yaml}}
             {{/if}}
+          {{/if}}
+          {{#if _nodeAffinity}}
+          {{#json2yaml "_nodeAffinity"}}{{/json2yaml}}
           {{/if}}
           {{#if _nodeAntiAffinity}}
           {{#json2yaml "_nodeAntiAffinity"}}{{/json2yaml}}
