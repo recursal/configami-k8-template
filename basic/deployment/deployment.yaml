@@ -213,8 +213,10 @@ spec:
       hostNetwork: {{hostNetwork}}
       dnsPolicy: ClusterFirstWithHostNet
       {{else}}
+      {{#if hostNetworkBlock}}
       hostNetwork: false
       dnsPolicy: {{dnsPolicy}}
+      {{/if}}
       {{/if}}
       {{#if dnsNameServers}}
       dnsConfig:
