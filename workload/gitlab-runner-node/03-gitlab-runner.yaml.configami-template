@@ -1,5 +1,5 @@
 {
-	"template": "k8/basic/daemonset",
+	"template": "K8/basic/daemonset",
 	"input": {
 
 		// Name / Namespace

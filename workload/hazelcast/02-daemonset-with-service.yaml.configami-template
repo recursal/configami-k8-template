@@ -1,5 +1,5 @@
 {
-	"template": "k8/basic/daemonset-with-service",
+	"template": "K8/basic/daemonset-with-service",
 
 	"input_base": {
 

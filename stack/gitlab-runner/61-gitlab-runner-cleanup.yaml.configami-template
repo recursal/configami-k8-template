@@ -1,5 +1,5 @@
 {
-	"template": "k8/workload/gitlab-runner-cleanup",
+	"template": "K8/workload/gitlab-runner-cleanup",
 
 	"input": {
 		"name": "{{name}}-cleanup"

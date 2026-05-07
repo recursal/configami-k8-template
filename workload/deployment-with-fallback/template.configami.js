@@ -10,7 +10,7 @@ module.exports = function(cg, input, output) {
 	//
 	// Setup namespace with labels
 	//
-	output["01-namespace.yaml"] = cg.applyTemplate( "k8/basic/namespace", { 
+	output["01-namespace.yaml"] = cg.applyTemplate( "K8/basic/namespace", {
 		"name"   : input.namespace,
 		"labels" : input["namespace-labels"] || null
 	})["namespace.yaml"];
@@ -19,7 +19,7 @@ module.exports = function(cg, input, output) {
 	// Setup ingress public-lb
 	//
 	if( input.ingress && input.ingress.host ) {
-		output["05-public-lb.yaml"] = cg.applyTemplate( "k8/basic/ingress", input.ingress )["ingress.yaml"];
+		output["05-public-lb.yaml"] = cg.applyTemplate( "K8/basic/ingress", input.ingress )["ingress.yaml"];
 	}
 
 	//
@@ -42,7 +42,7 @@ module.exports = function(cg, input, output) {
 	 */
 	function getDeploymentConfig(type) {
 		// Get baseline config
-		// Used in `k8/basic/deployment-with-service`
+			// Used in `K8/basic/deployment-with-service`
 		let ret = cg.joinNestedObject({}, simpleInput)
 		ret.name = input.name+"-"+type;
 
@@ -77,7 +77,7 @@ module.exports = function(cg, input, output) {
 	 * @return {String} to output as yaml
 	 */
 	function getServiceYaml(type) {
-		let subTemplateOutput = cg.applyTemplate("k8/basic/deployment-with-service", getDeploymentConfig(type), {});
+		let subTemplateOutput = cg.applyTemplate("K8/basic/deployment-with-service", getDeploymentConfig(type), {});
 		return subTemplateOutput["deployment.yaml"] + "\n" + subTemplateOutput["service.yaml"];
 	}
 
