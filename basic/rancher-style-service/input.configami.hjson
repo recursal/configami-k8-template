@@ -24,6 +24,7 @@
 	"port" :         80,
 	"portName":      "http-default",
 	"portProtocol" : "TCP",
+	// "targetPort": 8080,
 
 	// nodePort settings
 	//-------------------------------------------
