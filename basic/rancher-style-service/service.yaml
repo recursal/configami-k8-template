@@ -41,7 +41,11 @@ spec:
   - name: {{portName}}
     port: {{port}}
     protocol: {{portProtocol}}
+    {{#if targetPort}}
+    targetPort: {{targetPort}}
+    {{else}}
     targetPort: {{port}}
+    {{/if}}
     {{#if nodePort}}
     nodePort: {{nodePort}}
     {{/if}}
