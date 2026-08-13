@@ -54,10 +54,10 @@
 		"proxy-max-temp-file-size": "100m",
 
 		// Connection timeouts
-		"proxy-connect-timeout": "60s",
+		"proxy-connect-timeout": "60",
 		"keep-alive": "300s",
-		"proxy-read-timeout": "300s",
-		"proxy-send-timeout": "300s",
+		"proxy-read-timeout": "300",
+		"proxy-send-timeout": "300",
 
 		// Enable SSL redirect by default
 		"ssl-redirect": "true",
