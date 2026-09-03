@@ -16,7 +16,20 @@ metadata:
     {{else}}
     field.cattle.io/targetWorkloadIds: '["{{deploymentType}}:{{namespace}}:{{name}}"]'
     {{/if}}
+    {{#if extraAnnotations}}
+    # Caller supplied annotations (e.g. cloud load-balancer settings)
+    {{#json2yaml "extraAnnotations"}}{{/json2yaml}}
+    {{/if}}
 spec:
+  {{#if serviceType}}
+  # Explicit service type (e.g. LoadBalancer) - no clusterIP block
+  type: {{serviceType}}
+  {{#if externalTrafficPolicy}}
+  # Local preserves client source IP (only nodes with a pod pass the LB
+  # health check); Cluster spreads across all nodes
+  externalTrafficPolicy: {{externalTrafficPolicy}}
+  {{/if}}
+  {{else}}
   {{#if nodePort}}
   type: NodePort
   {{else}}
@@ -37,7 +50,26 @@ spec:
   clusterIP: None
   {{/if}}
   {{/if}}
+  {{/if}}
   ports:
+  {{#if serviceType}}
+  {{#if portsArray}}
+  # Full port list supplied by the caller (name/port/targetPort/protocol).
+  # Only honoured in explicit serviceType mode: plans composed via
+  # deployment-with-service pass portsArray for the Deployment (containerPort
+  # shape), and legacy ClusterIP rendering must stay untouched.
+  {{#json2yaml "portsArray"}}{{/json2yaml}}
+  {{else}}
+  - name: {{portName}}
+    port: {{port}}
+    protocol: {{portProtocol}}
+    {{#if targetPort}}
+    targetPort: {{targetPort}}
+    {{else}}
+    targetPort: {{port}}
+    {{/if}}
+  {{/if}}
+  {{else}}
   - name: {{portName}}
     port: {{port}}
     protocol: {{portProtocol}}
@@ -49,6 +81,7 @@ spec:
     {{#if nodePort}}
     nodePort: {{nodePort}}
     {{/if}}
+  {{/if}}
   selector:
     {{#if customSelector}}
     {{#each customSelector}}
@@ -88,8 +121,10 @@ spec:
   # Topology keys are disabled
   {{/if}}
   {{/contains}}
+  {{#unless serviceType}}
   {{#if nodePort}}
   {{else}}
   type: ClusterIP
   {{/if}}
+  {{/unless}}
 ---

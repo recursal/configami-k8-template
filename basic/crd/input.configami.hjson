@@ -1,0 +1,23 @@
+//
+// Default input settings to use
+//
+{
+	// The full CustomResourceDefinition `spec` object, passed straight
+	// through (group, names, scope, versions, ...).
+	//-------------------------------------------
+	// "crdSpec": {
+	// 	"group": "example.com",
+	// 	"names": { "kind": "Widget", "listKind": "WidgetList", "plural": "widgets", "singular": "widget" },
+	// 	"scope": "Namespaced",
+	// 	"versions": [ ... ]
+	// },
+
+	// metadata.name of the CRD; defaults to "<names.plural>.<group>"
+	// derived from crdSpec (see input.configami.js)
+	//-------------------------------------------
+	//"crdName" : "widgets.example.com",
+
+	// Optional metadata annotations
+	//-------------------------------------------
+	//"crdAnnotations": { "owner": "platform-team" }
+}

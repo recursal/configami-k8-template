@@ -30,6 +30,28 @@
 	//-------------------------------------------
 	// "nodePort": 30100
 
+	// Explicit service type (e.g. "LoadBalancer"). When set, the
+	// clusterIP/nodePort block is skipped entirely.
+	//-------------------------------------------
+	// "serviceType": "LoadBalancer",
+
+	// LB traffic policy ("Local" | "Cluster"); only rendered with serviceType
+	//-------------------------------------------
+	// "externalTrafficPolicy": "Cluster",
+
+	// Extra metadata annotations (e.g. cloud LB settings), passed through
+	//-------------------------------------------
+	// "extraAnnotations": {
+	// 	"service.beta.kubernetes.io/do-loadbalancer-name": "my-lb"
+	// },
+
+	// Full port list ([{ name, port, targetPort, protocol }]) — overrides
+	// the single port/portName/portProtocol block above
+	//-------------------------------------------
+	// "portsArray": [
+	// 	{ "name": "ssh", "port": 22, "targetPort": 2222, "protocol": "TCP" }
+	// ],
+
 	// clusterIP service mode
 	//-------------------------------------------
 	"clusterIP" : "auto"
