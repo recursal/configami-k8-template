@@ -83,6 +83,9 @@ module.exports = function(cg, input) {
 	if( input.simplePodAffinity || input.customPodAffinity ) {
 		input._hasPodAffinity = true
 	}
+	if( input._nodeAffinity ) {
+		input._hasAffinity = true;
+	}
 	if( input._hasNodeAffinity || input._hasPodAffinity) {
 		input._hasAffinity = true;
 	}

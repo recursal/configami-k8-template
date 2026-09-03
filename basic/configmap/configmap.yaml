@@ -9,5 +9,9 @@ kind: ConfigMap
 metadata:
   name: {{name}}
   namespace: {{namespace}}
+  {{#if annotations}}
+  annotations:
+    {{#json2yaml "annotations"}}{{/json2yaml}}
+  {{/if}}
 {{#json2yaml "_dataWrap"}}{{/json2yaml}}
 ---
