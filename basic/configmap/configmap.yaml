@@ -13,5 +13,9 @@ metadata:
   annotations:
     {{#json2yaml "annotations"}}{{/json2yaml}}
   {{/if}}
+{{#if _dataRaw}}
+{{{ _dataRaw }}}
+{{else}}
 {{#json2yaml "_dataWrap"}}{{/json2yaml}}
+{{/if}}
 ---
