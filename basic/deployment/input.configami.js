@@ -105,6 +105,18 @@ module.exports = function(cg, input) {
 		input.imagePullSecrets = [ input.imagePullSecrets ];
 	}
 
+	//
+	// Workloadselector label value: deploymentType-namespace-name.
+	// Label VALUES are capped at 63 chars, so a long namespace can
+	// overflow the cap and kubectl rejects the Deployment selector.
+	// `shortNamespace` substitutes a shorter token for the namespace
+	// segment of this label only - the real `namespace` field and all
+	// other rendering (annotations, targetWorkloadIds) are untouched.
+	//
+	if( input.namespace && input.name ) {
+		input._workloadSelector = ( input.deploymentType || "deployment" ) + "-" + ( input.shortNamespace || input.namespace ) + "-" + input.name;
+	}
+
 	// Return the final input
 	return input;
 }

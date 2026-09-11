@@ -55,10 +55,14 @@ spec:
     {{@key}}: {{this}}
     {{/each}}
     {{else}}
+    {{#if _workloadSelector}}
+    workload.user.cattle.io/workloadselector: {{_workloadSelector}}
+    {{else}}
     {{#if deploymentName}}
     workload.user.cattle.io/workloadselector: {{deploymentType}}-{{namespace}}-{{deploymentName}}
     {{else}}
     workload.user.cattle.io/workloadselector: {{deploymentType}}-{{namespace}}-{{name}}
+    {{/if}}
     {{/if}}
     {{/if}}
   sessionAffinity: None

@@ -10,11 +10,11 @@ metadata:
   name: {{name}}
   namespace: {{namespace}}
   annotations:
-    workload.user.cattle.io/workloadselector: {{deploymentType}}-{{namespace}}-{{name}}
+    workload.user.cattle.io/workloadselector: {{_workloadSelector}}
 spec:
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: {{deploymentType}}-{{namespace}}-{{name}}
+      workload.user.cattle.io/workloadselector: {{_workloadSelector}}
   {{#eq deploymentType "deployment"}}
   replicas: {{scale}}
   {{/eq}}
@@ -38,7 +38,7 @@ spec:
   template:
     metadata:
       labels:
-        workload.user.cattle.io/workloadselector: {{deploymentType}}-{{namespace}}-{{name}}
+        workload.user.cattle.io/workloadselector: {{_workloadSelector}}
         {{#if labels}}
         {{#json2yaml "labels"}}{{/json2yaml}}
         {{/if}}
@@ -116,7 +116,7 @@ spec:
         {{/eq}}
         labelSelector:
           matchLabels:
-            workload.user.cattle.io/workloadselector: {{deploymentType}}-{{namespace}}-{{name}}
+            workload.user.cattle.io/workloadselector: {{_workloadSelector}}
       {{/if}}
       {{#if containerTopologySpread.zoneTopology}}
       - maxSkew: 1
@@ -128,7 +128,7 @@ spec:
         {{/eq}}
         labelSelector:
           matchLabels:
-            workload.user.cattle.io/workloadselector: {{deploymentType}}-{{namespace}}-{{name}}
+            workload.user.cattle.io/workloadselector: {{_workloadSelector}}
       {{/if}}
       {{/if}}
       {{#if specSecurityContext}}

@@ -5,6 +5,14 @@
 	// Namespace to use
 	//-------------------------------------------
 	"namespace" : "hello-namespace",
+
+	// Optional shorter token used ONLY inside the
+	// workload.user.cattle.io/workloadselector label value
+	// (deploymentType-shortNamespace-name). Label values are capped at
+	// 63 chars; with a long namespace the default label overflows and
+	// the API rejects the selector. Real metadata.namespace is untouched.
+	//-------------------------------------------
+	// "shortNamespace" : "short-ns",
 	
 	// Deployment name to use
 	//-------------------------------------------
