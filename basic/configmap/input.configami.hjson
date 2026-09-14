@@ -13,4 +13,10 @@
 	// Data mapping to convert
 	//-------------------------------------------
 	// "data" : {}
+
+	// Multi-line payload files rendered as |2 block scalars;
+	// map data key -> file path, relative to "planDir" (forward it
+	// from the plan as "planDir": "{{planDir}}") or absolute
+	//-------------------------------------------
+	// "fileContent" : { "ceph.conf": "config/ceph.conf" }
 }
