@@ -25,8 +25,6 @@ function readFileContent(cg, input, key, rel) {
 }
 
 module.exports = function(cg, input) {
-  console.log('CONFIGMAP?? ', { input })
-
   //
   // Custom handling of data wrapping
   //
